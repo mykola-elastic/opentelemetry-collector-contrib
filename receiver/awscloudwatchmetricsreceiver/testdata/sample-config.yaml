@@ -1,0 +1,37 @@
+receivers:
+  awscloudwatchmetrics:
+    region: us-east-1
+    collection_interval: 60s
+    metrics:
+      - namespace: AWS/EC2
+        metric_name: CPUUtilization
+        period: 60s
+        statistics:
+          - Average
+          - Maximum
+        dimensions:
+          - InstanceId
+      - namespace: AWS/EC2
+        metric_name: NetworkIn
+        statistics:
+          - Sum
+      - namespace: AWS/ECS
+        metric_name: CPUUtilization
+        statistics:
+          - Average
+      - namespace: AWS/RDS
+        metric_name: DatabaseConnections
+        period: 300s
+        statistics:
+          - Sum
+          - Average
+
+exporters:
+  debug:
+    verbosity: detailed
+
+service:
+  pipelines:
+    metrics:
+      receivers: [awscloudwatchmetrics]
+      exporters: [debug]
