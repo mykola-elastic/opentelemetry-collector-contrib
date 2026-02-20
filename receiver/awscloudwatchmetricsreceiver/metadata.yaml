@@ -1,0 +1,23 @@
+display_name: AWS CloudWatch Metrics Receiver
+type: awscloudwatchmetrics
+
+description: |
+  The AWS CloudWatch Metrics Receiver collects metrics from AWS CloudWatch using the
+  GetMetricData API and converts them to OpenTelemetry metrics.
+
+status:
+  class: receiver
+  stability:
+    alpha: [metrics]
+  distributions: [contrib]
+  codeowners:
+    active: []
+
+tests:
+  config:
+    region: us-east-1
+    metrics:
+      - namespace: AWS/EC2
+        metric_name: CPUUtilization
+  goleak:
+    skip: true

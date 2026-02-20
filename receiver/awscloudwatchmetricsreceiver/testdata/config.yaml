@@ -1,0 +1,33 @@
+awscloudwatchmetrics:
+  region: us-east-1
+  collection_interval: 60s
+  metrics:
+    - namespace: AWS/EC2
+      metric_name: CPUUtilization
+      dimensions:
+        - InstanceId
+    - namespace: AWS/ECS
+      metric_name: CPUUtilization
+
+awscloudwatchmetrics/full:
+  region: eu-west-1
+  profile: production
+  collection_interval: 300s
+  metrics:
+    - namespace: AWS/EC2
+      metric_name: CPUUtilization
+      period: 120s
+      statistics:
+        - Average
+        - Maximum
+      dimensions:
+        - InstanceId
+    - namespace: AWS/ECS
+      metric_name: MemoryUtilization
+      statistics:
+        - Average
+    - namespace: AWS/RDS
+      metric_name: DatabaseConnections
+      period: 300s
+      statistics:
+        - Sum
